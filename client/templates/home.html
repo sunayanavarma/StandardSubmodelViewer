@@ -1,0 +1,18 @@
+{% extends 'templates/layout.html' %}
+
+{% block header %}
+  <h2>{% block title %} {% endblock title %}</h2>
+{% endblock header %}
+
+{% block content %}
+   
+<div class = "row">  
+<div class = "col-10">
+{{ submodel| safe }}
+	
+	<div style = "min-height : 5vh;"> </div>
+</div>
+<div class = "col-2">
+</div>
+    
+{% endblock content %}

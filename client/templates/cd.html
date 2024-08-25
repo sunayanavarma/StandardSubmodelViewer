@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h2>{% block title %} {% endblock title %}</h2>
+{% endblock header %}
+
+{% block content %}
+ <form method="post">
+    <div class="form-group">
+        <label for="author"> Enter Submodel Id </label>
+        <input type="text" name="inputsubmodelId" id="inputsubmodelId" value="{{ request.form['SubmodelId'] }}" class="form-control">
+    </div>
+   
+    <div class="form-group">
+        <input type="submit" value="Retrieve Submodel" class="submit-btn">
+    </div>
+</form>
+
+{% if visible == "true" %}
+   
+<div class = "row">
+<div class = "col-8">
+<div class="accordion" id="accordionExample">
+{% for key, value in nameplateData.items() %}
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="{{key}}">
+	
+	{% if loop.index == 1 %}
+	<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{key}}" aria-expanded="true" aria-controls="collapse{{key}}">
+        {{key}}
+      </button>
+	{% else %}
+	<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{key}}" aria-expanded="true" aria-controls="collapse{{key}}">
+        {{key}}
+      </button>
+	{% endif %}
+      
+    </h2>
+	{% if loop.index == 1 %}
+    <div id="collapse{{key}}" class="accordion-collapse collapse show" aria-labelledby="{{key}}" data-bs-parent="#accordionExample">
+	{% else %}
+	<div id="collapse{{key}}" class="accordion-collapse collapse" aria-labelledby="{{key}}" data-bs-parent="#accordionExample">
+	{% endif %}
+      <div class="accordion-body">
+	   {% for key1, value1 in value.items() %}       
+	   <div class="card-body" style="background-color: #CCE5FF;">
+	   {% if key1 != "ExplosionSafeties" %}
+		<div style="border-style: solid;border-width: 0.25px;min-height : 5vh;background-color: #e6e4e4;">
+			<div class = "row" style = "margin-left : 1.5vw;">
+				<div class = "col-1">
+				&#10148; 
+				</div>
+				<div class = "col-5">
+					{{key1}}
+				</div>
+				<div class = "col-6"> 
+					{{value1}}
+				</div>
+			</div>
+		</div>
+		{% else %}
+			<div class="accordion" id="accordionExplosions">
+			{% for key2, value2 in value1.items() %}
+			  <div class="accordion-item">
+				<h2 class="accordion-header" id="{{key2}}">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{key2}}" aria-expanded="true" aria-controls="collapse{{key2}}">
+						{{key2}}
+					</button>
+				</h2>
+				<div id="collapse{{key2}}" class="accordion-collapse collapse" aria-labelledby="{{key2}}" data-bs-parent="#accordionExplosions">
+				  <div class="accordion-body">
+				   {% for key3, value3 in value2.items() %}      
+				   {% if key3 != "AmbientConditions" and key3 != "ProcessConditions" and key3 != "ExternalElectricalCircuit" %}
+					   <div class="card-body" style="background-color: #CCE5FF;">
+						   <div style="border-style: solid;border-width: 0.25px;min-height : 5vh;background-color: #e6e4e4;">
+								<div class = "row" style = "margin-left : 1.5vw;">
+									<div class = "col-1">
+									&#10148; 
+									</div>
+									<div class = "col-5">
+										{{key3}}
+									</div>
+									<div class = "col-6"> 
+										{{value3}}
+									</div>
+								</div>
+							</div>
+						</div>
+					{% else %}
+					 <div class="accordion" id="accordion{{key3}}">
+						  <div class="accordion-item">
+							<h2 class="accordion-header" id="{{key3}}">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{key3}}" aria-expanded="true" aria-controls="collapse{{key3}}">
+									{{key3}}
+								</button>
+							</h2>
+							<div id="collapse{{key3}}" class="accordion-collapse collapse" aria-labelledby="{{key3}}" data-bs-parent="#accordion{{key3}}">
+							  <div class="accordion-body">
+							  {% for key4, value4 in value3.items() %}  
+								<div class="card-body" style="background-color: #CCE5FF;">
+								   <div style="border-style: solid;border-width: 0.25px;min-height : 5vh;background-color: #e6e4e4;">
+										<div class = "row" style = "margin-left : 1.5vw;">
+											<div class = "col-1">
+											&#10148; 
+											</div>
+											<div class = "col-5">
+												{{key4}}
+											</div>
+											<div class = "col-6"> 
+												{{value4}}
+											</div>
+										</div>
+									</div>
+								</div>
+								{% endfor %}
+							  </div>
+							</div>
+						  </div>
+						  <div style = "min-height : 1.5vh;"> </div>
+						  
+						</div>
+						
+					{% endif %}
+				{% endfor %}
+				  </div>
+				</div>
+			  </div>
+			  <div style = "min-height : 1.5vh;"> </div>
+			  {% endfor %}
+			</div>
+		{% endif %}
+		</div>
+	{% endfor %}
+      </div>
+    </div>
+  </div>
+  <div style = "min-height : 1.5vh;"> </div>
+  {% endfor %}
+</div>
+<div style = "min-height : 5vh;"> </div>
+</div>
+<div class = "col-4">
+<div class = "row">
+	<div class = "col-6">
+		<img src="{{ url_for('static', filename='Siemens_AG_logo.svg') }}" class="img-thumbnail" style = "height : 15vh;width : 15vw;" alt="companyLogo">
+	</div>
+	
+	<div class = "col-6">
+	</div>
+</div>
+</div>
+    
+{% else %}
+   
+{% endif %}
+
+{% endblock content %}

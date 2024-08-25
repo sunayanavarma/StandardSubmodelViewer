@@ -1,0 +1,130 @@
+{% extends 'templates/layout.html' %}
+
+{% block header %}
+  <h2>{% block title %} {% endblock title %}</h2>
+{% endblock header %}
+
+{% block content %}
+   
+<div class = "row">  
+<div class = "col-12">
+	<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+    
+     
+    
+    <script>
+    
+    const xValues = [];
+    
+    const yValues = [];
+    
+    i = 0
+    
+    generateData("x * 2 + 7", 0, 1, 0.5);
+    
+     
+    
+    chart = new Chart("myChart", {
+    
+      type: "line",
+    
+      data: {
+    
+        labels: xValues,
+    
+        datasets: [{
+    
+          fill: false,
+    
+          pointRadius: 1,
+    
+          borderColor: "rgba(255,0,0,0.5)",
+    
+          data: yValues
+    
+        }]
+    
+      },   
+    
+      options: {
+    
+        legend: {display: false},
+    
+        title: {
+    
+          display: true,
+    
+          text: "y = x * 2 + 7",
+    
+          fontSize: 16
+    
+        }
+    
+      }
+    
+    });
+    
+    function generateData(value, i1, i2, step = 1) {
+    
+      for (let x = i1; x <= i2; x += step) {
+    
+        xValues.push(x);
+    
+        yValues.push(eval(value));
+    
+      }
+    
+      i = i +1
+    
+    }
+    
+          // Create websocket
+    
+          var ws = new WebSocket('ws://192.168.178.48:8000/ws');
+    
+     
+    
+          // Whenever new message received, update display
+    
+          ws.onmessage = function(event) {
+    
+     
+    
+            console.log('DEBUG: Received ' + event.data);
+    
+     
+    
+            var HTML = "<li>" + event.data + "</li>";
+    
+            $("#culist").append(HTML);
+    
+            xValues.push(i);
+    
+            yValues.push(parseInt(event.data));
+    
+            i = i + 1;
+    
+                chart.update();
+    
+     
+    
+          }
+    
+     
+    
+          // Send first message to get server to start sending updates
+    
+          ws.send('GO!');
+    
+     
+    
+    </script>
+    
+    
+
+	
+	<div style = "min-height : 5vh;"> </div>
+</div>
+</div>
+    
+{% endblock content %}

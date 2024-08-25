@@ -1,0 +1,26 @@
+{% extends 'templates/layout.html' %}
+
+{% block header %}
+  <h2>{% block title %} {% endblock title %}</h2>
+{% endblock header %}
+
+{% block content %}
+   
+<div class = "row">  
+<div class = "col-8">
+{{ submodel| safe }}
+	
+	<div style = "min-height : 5vh;"> </div>
+</div>
+<div class = "col-4">
+<div class = "row">
+	<div class = "col-6">
+		<img src="{{ url_for('static', filename='/static/images/Siemens_AG_logo.svg') }}" class="img-thumbnail" style = "height : 15vh;width : 15vw;" alt="companyLogo">
+	</div>
+	
+	<div class = "col-6">
+	</div>
+</div>
+</div>
+    
+{% endblock content %}
