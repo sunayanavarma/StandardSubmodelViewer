@@ -11,7 +11,7 @@
 pip3 install -r requirements.txt
 
 ## Running
-python app.py
+python ./server/main.py
 
 ## License
 StandardSubmodelViewer is Licensed under Apache 2.0, the complete license text
