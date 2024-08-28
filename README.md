@@ -15,3 +15,5 @@ python ./server/main.py
 
 ## License
 StandardSubmodelViewer is Licensed under Apache 2.0, the complete license text
+
+Sunayana Varma Pakala
